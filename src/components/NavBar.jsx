@@ -3,7 +3,6 @@ import { HeartPlus, SunMoon } from "lucide-react";
 import logo from "../assets/logo.jpg";
 
 function NavBar() {
-   
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border shadow-sm">
       <div className="container mx-auto flex items-center justify-between px-6 py-3 h-20">
@@ -22,11 +21,10 @@ function NavBar() {
           </span>
         </Link>
 
-        
         <div className="flex items-center space-x-6 text-lg font-medium">
           {/* Favorites */}
           <Link
-            to="/fav"
+            to="/Favorites"
             className="flex items-center gap-2 px-3 py-2 rounded-md text-foreground hover:text-yellow-400 hover:bg-yellow-400/10 transition-colors duration-200"
           >
             <HeartPlus size={22} />
