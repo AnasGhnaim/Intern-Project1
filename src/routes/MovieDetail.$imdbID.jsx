@@ -1,13 +1,14 @@
 // routes/MovieDetail.$imdbID.tsx
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import Spinner from "../components/Spinner";
 
 export const Route = createFileRoute("/MovieDetail/$imdbID")({
   component: MovieDetailComponent,
 });
 
 function MovieDetailComponent() {
-  const { imdbID } = useParams({ from: Route.id }); // or just useParams()
+  const { imdbID } = useParams({ from: Route.id });
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
   const API_KEY = "b4aeadbb";
@@ -31,7 +32,7 @@ function MovieDetailComponent() {
   }, [imdbID]);
 
   if (error) return <p className="text-yellow-400 text-center">{error}</p>;
-  if (!movie) return <p className="text-yellow-400 text-center">Loading...</p>;
+  if (!movie) return <Spinner />;
 
   return (
     <section className="min-h-screen bg-black text-yellow-300 p-6">
