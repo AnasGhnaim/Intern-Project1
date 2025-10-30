@@ -4,7 +4,7 @@ function Footer() {
   const links = [
     {
       Name: "Home",
-      to: "/Home",
+      to: "/",
     },
     {
       Name: "Favorites",

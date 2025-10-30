@@ -9,18 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as HomeRouteImport } from './routes/Home'
 import { Route as FavoritesRouteImport } from './routes/Favorites'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as MovieDetailImdbIDRouteImport } from './routes/MovieDetail.$imdbID'
 
-const HomeRoute = HomeRouteImport.update({
-  id: '/Home',
-  path: '/Home',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const FavoritesRoute = FavoritesRouteImport.update({
   id: '/Favorites',
   path: '/Favorites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MovieDetailImdbIDRoute = MovieDetailImdbIDRouteImport.update({
@@ -30,49 +30,49 @@ const MovieDetailImdbIDRoute = MovieDetailImdbIDRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/Favorites': typeof FavoritesRoute
-  '/Home': typeof HomeRoute
   '/MovieDetail/$imdbID': typeof MovieDetailImdbIDRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/Favorites': typeof FavoritesRoute
-  '/Home': typeof HomeRoute
   '/MovieDetail/$imdbID': typeof MovieDetailImdbIDRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/Favorites': typeof FavoritesRoute
-  '/Home': typeof HomeRoute
   '/MovieDetail/$imdbID': typeof MovieDetailImdbIDRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/Favorites' | '/Home' | '/MovieDetail/$imdbID'
+  fullPaths: '/' | '/Favorites' | '/MovieDetail/$imdbID'
   fileRoutesByTo: FileRoutesByTo
-  to: '/Favorites' | '/Home' | '/MovieDetail/$imdbID'
-  id: '__root__' | '/Favorites' | '/Home' | '/MovieDetail/$imdbID'
+  to: '/' | '/Favorites' | '/MovieDetail/$imdbID'
+  id: '__root__' | '/' | '/Favorites' | '/MovieDetail/$imdbID'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   FavoritesRoute: typeof FavoritesRoute
-  HomeRoute: typeof HomeRoute
   MovieDetailImdbIDRoute: typeof MovieDetailImdbIDRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/Home': {
-      id: '/Home'
-      path: '/Home'
-      fullPath: '/Home'
-      preLoaderRoute: typeof HomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/Favorites': {
       id: '/Favorites'
       path: '/Favorites'
       fullPath: '/Favorites'
       preLoaderRoute: typeof FavoritesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/MovieDetail/$imdbID': {
@@ -86,8 +86,8 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   FavoritesRoute: FavoritesRoute,
-  HomeRoute: HomeRoute,
   MovieDetailImdbIDRoute: MovieDetailImdbIDRoute,
 }
 export const routeTree = rootRouteImport

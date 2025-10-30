@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import HeroSection from "../components/home/HeroSection";
 import Search from "../components/home/Search";
 import MovieCard from "../components/home/MovieCard";
-export const Route = createFileRoute("/Home")({
+export const Route = createFileRoute("/")({
   component: Home,
   loader: ({ context }) => {
     return { film: context.film, setFilm: context.omar };

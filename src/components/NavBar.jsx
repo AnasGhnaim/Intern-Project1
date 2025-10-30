@@ -8,7 +8,7 @@ function NavBar() {
       <div className="container mx-auto flex items-center justify-between px-6 py-3 h-20">
         {/*  Logo */}
         <Link
-          to="/Home"
+          to="/"
           className="flex items-center gap-3 group transition-all duration-300"
         >
           <img

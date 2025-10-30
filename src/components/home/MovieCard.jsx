@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { HeartPlus } from "lucide-react";
+import { HeartPlus, Heart } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import Spinner from "../Spinner";
 
@@ -37,77 +37,67 @@ function MovieCard({ search }) {
     callMovies();
   }, [search]);
 
-  //Save favorites to localStorage whenever film changes
-  useEffect(() => {
-    localStorage.setItem("favoriteMovies", JSON.stringify(film));
-  }, [film]);
-
   //handle function for the fav button
   function handleClick(movie) {
+    const film = JSON.parse(localStorage.getItem("favoriteMovies")) || [];
     const isAlreadyFav = film.some((fav) => fav.imdbID === movie.imdbID);
+    let updatedFavorites;
     if (isAlreadyFav) {
-      setFilm(film.filter((f) => f.imdbID !== movie.imdbID));
+      updatedFavorites = film.filter((f) => f.imdbID !== movie.imdbID);
     } else {
-      setFilm([...film, movie]);
+      updatedFavorites = [...film, movie];
     }
+    setFilm(updatedFavorites);
+    localStorage.setItem("favoriteMovies", JSON.stringify(updatedFavorites));
   }
 
   return (
-    <section className="container mx-auto max-w-6xl">
+    <section className="container mx-auto max-w-6xl px-4 py-10">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-yellow-400">Movie List</h2>
       </div>
 
       {error && <p className="text-center text-yellow-400">{error}</p>}
-      {/* <div className="bg-yellow-100 p-4 mb-4 rounded">
-        <h4 className="font-bold text-black">Favorites Debug:</h4>
-        <ul>
-          {film?.length === 0 && <li>No favorites yet.</li>}
-          {film.map((fav) => (
-            <li key={fav.imdbID}>
-              {fav.Title} ({fav.Year})
-            </li>
-          ))}
-        </ul>
-      </div> */}
+
       {loading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-6 justify-items-center gap-4">
-          {movies.map((movie, index) => (
+        <div className="grid grid-cols-5 justify-items-center gap-6">
+          {movies.map((movie) => (
             <div
-              key={index}
-              className="overflow-hidden rounded-lg bg-yellow-300 transition-transform hover:scale-105"
+              key={movie.imdbID}
+              className="flex flex-col rounded-lg  bg-[#1a1a1a] transition-transform hover:scale-105"
             >
-              <div className="overflow-hidden">
+              <div className="relative">
                 <img
                   src={movie.Poster}
                   alt={movie.Title}
-                  className="object-fill h-56 w-full"
+                  className="object-cover w-full h-72"
                 />
                 <div className="flex justify-center space-x-6 py-2">
                   <button
-                    className="text-gray-800 hover:text-yellow-600 transition-colors"
+                    className="absolute  text-yellow-400 hover:text-red-500 transition-colors"
                     onClick={() => handleClick(movie)}
                   >
-                    <HeartPlus size={22} />
+                    {film.some((fav) => fav.imdbID === movie.imdbID) ? (
+                      <Heart size={22} fill="currentColor" />
+                    ) : (
+                      <HeartPlus size={22} />
+                    )}
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 items-center p-4 bg-[#0d0d0df1]">
-                <h3 className="text-lg font-semibold text-start text-yellow-300">
-                  {movie.Title}
-                </h3>
-                <h3 className="text-lg font-bold text-end text-yellow-300">
-                  {movie.Year}
-                </h3>
+              <div className="flex flex-col items-center justify-between flex-1 p-4 text-yellow-300">
+                <div className="flex flex-row justify-between w-full">
+                  <h3 className="text-lg font-semibold text-start">
+                    {movie.Title}
+                  </h3>
+                  <span className="text-lg font-bold">{movie.Year}</span>
+                </div>
 
-                <div className="col-span-2 text-center mt-2">
-                  <Link
-                    to={`/MovieDetail/${movie.imdbID}`}
-                    className="text-yellow-300"
-                  >
+                <div className="inline-block text-center w-full bg-yellow-400 text-black font-semibold py-2 rounded-md hover:bg-yellow-300 transition">
+                  <Link to={`/MovieDetail/${movie.imdbID}`} className="">
                     Read More
                   </Link>
                 </div>
