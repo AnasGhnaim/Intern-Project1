@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 
 function Searchcomponent({ search, setSearch }) {
   return (
-    <section className="p-12  flex items-center justify-center">
+    <section className="bg-white p-12  flex items-center justify-center dark:bg-black">
       <div className="max-w-xl w-full mx-auto text-center">
         <h2 className="text-4xl font-bold mb-8 text-yellow-400 tracking-wide">
           Search
