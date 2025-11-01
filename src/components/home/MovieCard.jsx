@@ -52,7 +52,7 @@ function MovieCard({ search }) {
   }
 
   return (
-    <section className="container mx-auto max-w-6xl px-4 py-10">
+    <section className="bg-white w-full py-10 dark:bg-black">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-yellow-400">Movie List</h2>
       </div>
@@ -62,11 +62,11 @@ function MovieCard({ search }) {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-5 justify-items-center gap-6">
+        <div className="grid grid-cols-5 auto-rows-fr justify-items-center gap-6 ">
           {movies.map((movie) => (
             <div
               key={movie.imdbID}
-              className="flex flex-col rounded-lg  bg-[#1a1a1a] transition-transform hover:scale-105"
+              className="flex flex-col rounded-lg bg-[#1a1a1a] transition-transform hover:scale-105 h-[32rem] w-56"
             >
               <div className="relative">
                 <img
@@ -74,7 +74,7 @@ function MovieCard({ search }) {
                   alt={movie.Title}
                   className="object-cover w-full h-72"
                 />
-                <div className="flex justify-center space-x-6 py-2">
+                <div className="flex flex-col flex-1 p-4 text-yellow-300 justify-between">
                   <button
                     className="absolute  text-yellow-400 hover:text-red-500 transition-colors"
                     onClick={() => handleClick(movie)}
@@ -90,7 +90,7 @@ function MovieCard({ search }) {
 
               <div className="flex flex-col items-center justify-between flex-1 p-4 text-yellow-300">
                 <div className="flex flex-row justify-between w-full">
-                  <h3 className="text-lg font-semibold text-start">
+                  <h3 className="text-lg font-semibold text-start ">
                     {movie.Title}
                   </h3>
                   <span className="text-lg font-bold">{movie.Year}</span>

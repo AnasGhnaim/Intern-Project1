@@ -35,11 +35,11 @@ function MovieDetailComponent() {
   if (!movie) return <Spinner />;
 
   return (
-    <section className="min-h-screen bg-black text-yellow-300 p-6">
+    <section className="min-h-screen bg-white dark:bg-black text-yellow-300 p-6">
       <div className="container mx-auto max-w-6xl">
         <div className="space-y-6">
           {/* Header */}
-          <div className="text-center border-b border-yellow-400 pb-4">
+          <div className="text-center text-black border-b dark:text-yellow-300 border-yellow-400 pb-4">
             <h1 className="text-3xl font-bold">{movie.Title}</h1>
             <p className="text-lg mt-2">
               {movie.Year} - {movie.Rated} - {movie.Runtime}
@@ -55,34 +55,34 @@ function MovieDetailComponent() {
               className="w-full max-w-md mx-auto rounded-lg"
             />
 
-            <div className="space-y-6 text-black bg-yellow-400 p-6 rounded-lg">
+            <div className="space-y-6 text-yellow-300 dark:bg-yellow-400 dark:text-black bg-black p-6 rounded-lg">
               <div>
-                <h3 className="text-xl font-bold border-b border-black pb-1">
+                <h3 className="text-xl font-bold border-b border-yellow-400 dark:border-black pb-1">
                   Plot
                 </h3>
                 <p className="mt-2">{movie.Plot}</p>
               </div>
               <div>
-                <h3 className="text-xl font-bold border-b border-black pb-1">
+                <h3 className="text-xl font-bold border-b border-yellow-400 dark:border-black pb-1">
                   Writer
                 </h3>
                 <p className="mt-2">{movie.Writer}</p>
               </div>
               <div>
-                <h3 className="text-xl font-bold border-b border-black pb-1">
+                <h3 className="text-xl font-bold border-b border-yellow-400 dark:border-black pb-1">
                   Actors
                 </h3>
                 <p className="mt-2">{movie.Actors}</p>
               </div>
               <div>
-                <h3 className="text-xl font-bold border-b border-black pb-1">
+                <h3 className="text-xl font-bold border-b border-yellow-400 dark:border-black pb-1">
                   Language
                 </h3>
                 <p className="mt-2">{movie.Language}</p>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold border-b border-black pb-1">
+                <h3 className="text-xl font-bold border-b border-yellow-400 dark:border-black pb-1">
                   Ratings
                 </h3>
                 <div className="grid grid-cols-3 gap-2 mt-3">

@@ -21,10 +21,12 @@ function RouteComponent() {
   }, []);
 
   return (
-    <section className="min-h-screen p-6 text-black">
+    <section className="bg-white min-h-screen p-6 text-black dark:bg-black ">
       <div className="container mx-auto w-56 mb-10">
         <div className="text-center">
-          <h1 className="text-4xl font-bold">My favorites</h1>
+          <h1 className="text-4xl font-bold dark:text-yellow-300">
+            My favorites
+          </h1>
         </div>
       </div>
       {/* <div>
