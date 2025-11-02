@@ -1,13 +1,16 @@
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { ThemeProvider } from "./context/ThemeContext";
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 const router = createRouter({ routeTree });
 
 function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <FavoritesProvider>
+        <RouterProvider router={router} />
+      </FavoritesProvider>
     </ThemeProvider>
   );
 }

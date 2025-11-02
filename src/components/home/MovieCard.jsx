@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { HeartPlus, Heart } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import Spinner from "../Spinner";
+import { useFavorites } from "../../context/FavoritesContext";
 
 function MovieCard({ search }) {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [film, setFilm] = useState([]);
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const API_KEY = "b4aeadbb";
   //movie search effect
@@ -37,20 +38,6 @@ function MovieCard({ search }) {
     callMovies();
   }, [search]);
 
-  //handle function for the fav button
-  function handleClick(movie) {
-    const film = JSON.parse(localStorage.getItem("favoriteMovies")) || [];
-    const isAlreadyFav = film.some((fav) => fav.imdbID === movie.imdbID);
-    let updatedFavorites;
-    if (isAlreadyFav) {
-      updatedFavorites = film.filter((f) => f.imdbID !== movie.imdbID);
-    } else {
-      updatedFavorites = [...film, movie];
-    }
-    setFilm(updatedFavorites);
-    localStorage.setItem("favoriteMovies", JSON.stringify(updatedFavorites));
-  }
-
   return (
     <section className="bg-white w-full py-10 dark:bg-black">
       <div className="text-center mb-12">
@@ -62,7 +49,7 @@ function MovieCard({ search }) {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-5 auto-rows-fr justify-items-center gap-6 ">
+        <div className="grid grid-cols-5 auto-rows-fr justify-items-center gap-6">
           {movies.map((movie) => (
             <div
               key={movie.imdbID}
@@ -76,11 +63,11 @@ function MovieCard({ search }) {
                 />
                 <div className="flex flex-col flex-1 p-4 text-yellow-300 justify-between">
                   <button
-                    className="absolute  text-yellow-400 hover:text-red-500 transition-colors"
-                    onClick={() => handleClick(movie)}
+                    className="absolute text-yellow-400 hover:text-red-500 transition-colors"
+                    onClick={() => toggleFavorite(movie)}
                   >
-                    {film.some((fav) => fav.imdbID === movie.imdbID) ? (
-                      <Heart size={22} fill="currentColor" />
+                    {isFavorite(movie.imdbID) ? (
+                      <Heart size={22} fill="red" />
                     ) : (
                       <HeartPlus size={22} />
                     )}
@@ -90,7 +77,7 @@ function MovieCard({ search }) {
 
               <div className="flex flex-col items-center justify-between flex-1 p-4 text-yellow-300">
                 <div className="flex flex-row justify-between w-full">
-                  <h3 className="text-lg font-semibold text-start ">
+                  <h3 className="text-lg font-semibold text-start">
                     {movie.Title}
                   </h3>
                   <span className="text-lg font-bold">{movie.Year}</span>

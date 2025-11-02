@@ -8,7 +8,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-black text-yellow-300 dark:bg-white dark:text-black p-4 mt-8 transition-colors duration-300">
+    <footer className="bg-white border-t border-black text-black dark:bg-black dark:text-yellow-300 p-4 dark:border-yellow-300 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center">
           {/* Quick Links */}
