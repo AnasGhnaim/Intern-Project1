@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { HeartPlus, SunMoon } from "lucide-react";
 import logo from "../assets/logo.jpg";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../store/themeSlice";
 
 function NavBar() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const theme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
 
   return (
     <nav className="bg-white sticky top-0 z-50 backdrop-blur-md border-b shadow-sm dark:bg-black transition-colors duration-300">
@@ -36,7 +37,7 @@ function NavBar() {
           </Link>
 
           <button
-            onClick={toggleTheme}
+            onClick={() => dispatch(toggleTheme())}
             className="flex items-center gap-2 px-3 py-2 rounded-md text-foreground hover:text-yellow-400 hover:bg-yellow-400/10 transition-all duration-200"
           >
             <SunMoon size={22} />
