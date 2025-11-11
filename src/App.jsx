@@ -1,7 +1,8 @@
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
-import { ThemeProvider } from "./context/ThemeContext";
-import { FavoritesProvider } from "./context/FavoritesContext";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import ThemeSync from "./components/ThemeSync";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -11,11 +12,10 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <FavoritesProvider>
-          <RouterProvider router={router} />
-        </FavoritesProvider>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeSync />
+        <RouterProvider router={router} />
+      </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
