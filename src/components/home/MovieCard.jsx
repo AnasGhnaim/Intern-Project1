@@ -4,7 +4,7 @@ import Spinner from "../Spinner";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useQuery } from "@tanstack/react-query";
 
-const API_KEY = "b4aeadbb";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const fetchMovies = async (search) => {
   try {

@@ -6,7 +6,7 @@ export const Route = createFileRoute("/MovieDetail/$imdbID")({
   component: MovieDetailComponent,
 });
 
-const API_KEY = "b4aeadbb";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const fetchMovie = async (imdbID) => {
   try {
