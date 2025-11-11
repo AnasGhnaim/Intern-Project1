@@ -1,4 +1,3 @@
-//import { useState, useEffect } from "react";
 import { HeartPlus, Heart } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import Spinner from "../Spinner";
@@ -24,38 +23,7 @@ const fetchMovies = async (search) => {
 };
 
 function MovieCard({ search }) {
-  // const [movies, setMovies] = useState([]);
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true);
   const { toggleFavorite, isFavorite } = useFavorites();
-
-  //movie search effect
-  // useEffect(() => {
-  //   setLoading(true);
-  //   async function callMovies() {
-  //     try {
-  //       const res = await fetch(
-  //         `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`
-  //       );
-  //       const data = await res.json();
-  //       if (data.Search) {
-  //         setMovies(data.Search);
-  //         setError(null);
-  //       } else {
-  //         setMovies([]);
-  //         setError("No movies found.");
-  //       }
-  //     } catch {
-  //       setMovies([]);
-  //       setError("Failed to fetch movies");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   callMovies();
-  // }, [search]);
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["movies", search],
     queryFn: () => fetchMovies(search),

@@ -1,6 +1,4 @@
-// routes/MovieDetail.$imdbID.tsx
 import { createFileRoute, useParams } from "@tanstack/react-router";
-//import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 
@@ -28,27 +26,6 @@ const fetchMovie = async (imdbID) => {
 
 function MovieDetailComponent() {
   const { imdbID } = useParams({ from: Route.id });
-  // const [movie, setMovie] = useState(null);
-  // const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   async function fetchMovie() {
-  //     try {
-  //       const res = await fetch(
-  //         `https://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}`
-  //       );
-  //       const data = await res.json();
-  //       if (data.Response === "False");
-  //       setMovie(data);
-  //       setError(null);
-  //     } catch (err) {
-  //       setError("Failed to fetch movie");
-  //       setMovie(null);
-  //     }
-  //   }
-  //   fetchMovie();
-  // }, [imdbID]);
-
   const {
     data: movie,
     isLoading,
