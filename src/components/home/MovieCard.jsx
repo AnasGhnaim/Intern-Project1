@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { HeartPlus, Heart } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import Spinner from "../Spinner";
-import { useFavorites } from "../../context/FavoritesContext";
-
+// import { useFavorites } from "../../context/FavoritesContext";
+import { useFavorites } from "../../hooks/useFavorites";
 function MovieCard({ search }) {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);

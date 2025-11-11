@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { useFavorites } from "../context/FavoritesContext";
+// import { useFavorites } from "../context/FavoritesContext";
+import { useFavorites } from "../hooks/useFavorites";
 import { Heart } from "lucide-react";
 
 export const Route = createFileRoute("/Favorites")({
