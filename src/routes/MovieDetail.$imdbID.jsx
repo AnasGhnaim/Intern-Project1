@@ -1,38 +1,43 @@
-// routes/MovieDetail.$imdbID.tsx
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
+import { useQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/MovieDetail/$imdbID")({
   component: MovieDetailComponent,
 });
 
+const API_KEY = import.meta.env.VITE_API_KEY;
+
+const fetchMovie = async (imdbID) => {
+  try {
+    const res = await fetch(
+      `https://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}`
+    );
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "can not fetch data from the api ");
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("movie data not able to fetch", error);
+  }
+};
+
 function MovieDetailComponent() {
   const { imdbID } = useParams({ from: Route.id });
-  const [movie, setMovie] = useState(null);
-  const [error, setError] = useState(null);
-  const API_KEY = "b4aeadbb";
+  const {
+    data: movie,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["movie", imdbID],
+    queryFn: () => fetchMovie(imdbID),
+  });
 
-  useEffect(() => {
-    async function fetchMovie() {
-      try {
-        const res = await fetch(
-          `https://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}`
-        );
-        const data = await res.json();
-        if (data.Response === "False");
-        setMovie(data);
-        setError(null);
-      } catch (err) {
-        setError("Failed to fetch movie");
-        setMovie(null);
-      }
-    }
-    fetchMovie();
-  }, [imdbID]);
-
-  if (error) return <p className="text-yellow-400 text-center">{error}</p>;
-  if (!movie) return <Spinner />;
+  if (isLoading) return <Spinner />;
+  if (isError) return <h3 className="text-red-500">{error.message}</h3>;
 
   return (
     <section className="min-h-screen bg-white dark:bg-black text-yellow-300 p-6">
