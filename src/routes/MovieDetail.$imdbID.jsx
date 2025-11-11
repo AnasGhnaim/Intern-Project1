@@ -1,4 +1,3 @@
-// routes/MovieDetail.$imdbID.tsx
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
@@ -24,7 +23,7 @@ function MovieDetailComponent() {
         setMovie(data);
         setError(null);
       } catch (err) {
-        setError("Failed to fetch movie");
+        setError("Failed to fetch movie", err);
         setMovie(null);
       }
     }
